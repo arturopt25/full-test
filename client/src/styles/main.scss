@@ -1,5 +1,6 @@
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
   }
   
   form {
@@ -15,16 +16,23 @@ body {
     padding: 10px;
     font-size: 16px;
   }
+
+  span {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+  }
   
   button {
     padding: 10px;
-    background-color: #007bff;
+    background-color: #305680;
     color: white;
     border: none;
     cursor: pointer;
   }
   
   button:hover {
-    background-color: #0056b3;
+    background-color: #333333;
   }
   

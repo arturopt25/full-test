@@ -2,9 +2,9 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../middleware/auth');
-
-// Cargar el modelo de post
 const BlogPost = require('../models/BlogPost');
+const User = require('../models/User'); 
+
 
 // Obtener todos los posts
 router.get('/', async (req, res) => {
@@ -18,12 +18,30 @@ router.get('/', async (req, res) => {
 
 // Crear un nuevo post
 router.post('/', ensureAuthenticated, async (req, res) => {
-  const { title, content, author } = req.body;
+  const { title, content } = req.body;
+
   try {
-    const newPost = new BlogPost({ title, content, author });
+    // Verifica si el usuario está autenticado
+    if (!req.user) {
+      return res.status(401).json({ msg: 'No autorizado' });
+    }
+
+    const user = await User.findById(req.user.id).select('name');
+    if (!user) {
+      return res.status(404).json({ msg: 'Usuario no encontrado' });
+    }
+    
+    // Crea el nuevo post
+    const newPost = new BlogPost({
+      title,
+      content,
+      author: user.name
+    });
+
     const post = await newPost.save();
     res.json(post);
   } catch (err) {
+    console.error(err.message);
     res.status(500).json({ msg: 'Error al crear el post' });
   }
 });

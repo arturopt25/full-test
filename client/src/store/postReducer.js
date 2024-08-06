@@ -20,6 +20,11 @@ const initialState = {
           error: payload,
           loading: false,
         };
+      case 'RESET_POST_SUCCESS':
+      return {
+        ...state,
+        loading: false
+      };
       // Agrega más casos según sea necesario
       default:
         return state;

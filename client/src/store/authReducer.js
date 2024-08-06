@@ -1,10 +1,10 @@
 const initialState = {
-    token: localStorage.getItem('token'),
-    isAuthenticated: null,
-    user: null,
-    loading: true,
-    error: null,
-  };
+  token: localStorage.getItem('token') || null,
+  user: JSON.parse(localStorage.getItem('user')) || null,
+  isAuthenticated: false,
+  loading: true,
+  error: null
+};
   
   export default function authReducer(state = initialState, action) {
     const { type, payload } = action;

@@ -1,0 +1,53 @@
+$nav-bg-color: #333;
+$nav-link-color: #fff;
+$nav-hover-bg-color: #555;
+$logout-bg-color: #ff4b5c;
+
+nav {
+  background-color: $nav-bg-color;
+  padding: 1rem;
+
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0 1rem;
+
+      a {
+        color: $nav-link-color;
+        text-decoration: none;
+        font-size: 1.1rem;
+
+        &:hover,
+        &:focus {
+          background-color: $nav-hover-bg-color;
+          border-radius: 5px;
+        }
+      }
+
+      button {
+        background-color: $logout-bg-color;
+        color: $nav-link-color;
+        border: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        font-size: 1.1rem;
+
+        &:hover,
+        &:focus {
+          background-color: $nav-hover-bg-color;
+          border-radius: 5px;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}

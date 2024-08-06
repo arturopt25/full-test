@@ -4,6 +4,8 @@ export const registerUser = (userData) => async (dispatch) => {
   try {
     const res = await axios.post('/api/auth/register', userData);
     dispatch({ type: 'REGISTER_SUCCESS', payload: res.data });
+    localStorage.setItem('token', res.data.token);
+    localStorage.setItem('user', JSON.stringify(res.data.user));
   } catch (err) {
     dispatch({ type: 'REGISTER_FAIL', payload: err.response.data });
   }
@@ -13,6 +15,9 @@ export const loginUser = (userData) => async (dispatch) => {
   try {
     const res = await axios.post('/api/auth/login', userData);
     dispatch({ type: 'LOGIN_SUCCESS', payload: res.data });
+    // Guarda el token y el usuario en el localStorage si es necesario
+    localStorage.setItem('token', res.data.token);
+    localStorage.setItem('user', JSON.stringify(res.data.user));
   } catch (err) {
     dispatch({ type: 'LOGIN_FAIL', payload: err.response.data });
   }
@@ -41,3 +46,8 @@ export const logout = () => async (dispatch) => {
       console.error("Error al hacer logout:", err);
     }
   };
+
+  export const resetPostSuccess = () => ({
+    type: 'RESET_POST_SUCCESS'
+  });
+  

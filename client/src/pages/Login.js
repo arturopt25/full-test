@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../store/actions';
+import { useNavigate } from 'react-router-dom';
+import './Login.scss';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -8,9 +10,12 @@ const Login = () => {
     password: '',
   });
 
+  
   const dispatch = useDispatch();
 
   const { email, password } = formData;
+  const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,8 +25,16 @@ const Login = () => {
     dispatch(loginUser({ email, password }));
   };
 
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      navigate('/'); // Redirige a la página de inicio en caso de éxito
+    }
+  }, [auth.isAuthenticated, navigate]);
+
   return (
-    <form onSubmit={onSubmit}>
+    <div className="login-container">
+      <h1>Login</h1>
+    <form className="login-form" onSubmit={onSubmit}>
       <input
         type="email"
         placeholder="Email"
@@ -39,7 +52,12 @@ const Login = () => {
         required
       />
       <button type="submit">Login</button>
+      {auth.error && <p className="error-message">{auth.error}</p>}
+      <p className="signup-link">
+          Not a member? <a href="/register">Sign up here</a>
+        </p>
     </form>
+    </div>
   );
 };
 

@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Posts from './pages/Posts';
 import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
+import PostsList from './components/PostsList'; 
 
 const App = () => {
   return (
@@ -14,9 +15,17 @@ const App = () => {
       <Router>
         <Navbar />
         <Routes>
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <PrivateRoute exact path="/posts" component={Posts} />
+          <Route exact path="/" element={<PostsList />} />
+          <Route  path="/register" element={<Register />} />
+          <Route  path="/login" element={<Login />} />
+          <Route
+          path="/posts"
+          element={
+            <PrivateRoute>
+              <Posts />
+            </PrivateRoute>
+          }
+        />
         </Routes>
       </Router>
     </Provider>
