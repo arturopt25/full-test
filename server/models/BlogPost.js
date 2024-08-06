@@ -1,4 +1,4 @@
-// server/models/BlogPost.js
+
 const mongoose = require('mongoose');
 
 const BlogPostSchema = new mongoose.Schema({

@@ -25,7 +25,7 @@ const initialState = {
         ...state,
         loading: false
       };
-      // Agrega más casos según sea necesario
+      
       default:
         return state;
     }
