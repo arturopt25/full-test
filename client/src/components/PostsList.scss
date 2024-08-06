@@ -55,4 +55,31 @@ $margin: 1rem;
     font-size: 1.2rem;
     margin-top: $margin;
   }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 5px;
+      cursor: pointer;
+      border-radius: 4px;
+  
+      &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+    }
+  
+    span {
+      margin: 0 10px;
+    }
+  }
+  
 }

@@ -8,10 +8,23 @@ const User = require('../models/User');
 
 // Obtener todos los posts
 router.get('/', async (req, res) => {
+  const { page = 1, limit = 7 } = req.query; // Valores por defecto para página y límite
+
   try {
-    const posts = await BlogPost.find();
-    res.json(posts);
+    const posts = await BlogPost.find()
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    const count = await BlogPost.countDocuments();
+
+    res.json({
+      posts,
+      totalPages: Math.ceil(count / limit),
+      currentPage: parseInt(page),
+    });
   } catch (err) {
+    console.error(err.message);
     res.status(500).json({ msg: 'Error al obtener los posts' });
   }
 });
